@@ -1,4 +1,3 @@
---V1 Create_table_book_bookloan.sql --
 CREATE TABLE book_bookloan (
     book_id INTEGER,
     bookloan_id INTEGER,

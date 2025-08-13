@@ -1,4 +1,3 @@
---V1 Create_table_book_author.sql --
 CREATE TABLE book_author (
     book_id INTEGER,
     author_id INTEGER,

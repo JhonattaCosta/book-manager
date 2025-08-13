@@ -1,4 +1,3 @@
---V1 Create_table_book_category.sql --
 CREATE TABLE book_category (
     book_id INTEGER,
     category_id INTEGER,
