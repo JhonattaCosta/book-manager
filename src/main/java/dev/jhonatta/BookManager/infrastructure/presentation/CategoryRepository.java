@@ -1,0 +1,7 @@
+package dev.jhonatta.BookManager.infrastructure.presentation;
+
+import dev.jhonatta.BookManager.infrastructure.persistence.CategoryEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> {
+}
