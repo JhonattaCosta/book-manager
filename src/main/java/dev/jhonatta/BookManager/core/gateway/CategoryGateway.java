@@ -10,5 +10,7 @@ public interface CategoryGateway {
 
     List<Category> findAllCategory();
 
+    Category findByIdCategory(Long id);
+
 }
 

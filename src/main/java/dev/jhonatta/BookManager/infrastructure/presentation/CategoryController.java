@@ -2,6 +2,7 @@ package dev.jhonatta.BookManager.infrastructure.presentation;
 
 import dev.jhonatta.BookManager.core.entities.Category;
 import dev.jhonatta.BookManager.core.usercase.category.CreateCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.FindByIdCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.FindCategoryUseCase;
 import dev.jhonatta.BookManager.infrastructure.dtos.CategoryDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.CategoryMapper;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,6 +20,7 @@ public class CategoryController {
 
     private final CreateCategoryUseCase createCategoryUseCase;
     private final FindCategoryUseCase findCategoryUseCase;
+    private final FindByIdCategoryUseCase findByIdCategoryUseCase;
     private final CategoryMapper categoryMapper;
 
 
@@ -33,6 +36,14 @@ public class CategoryController {
         return findCategoryUseCase.execute().stream()
                 .map(categoryMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+
+    @GetMapping("/listbyid/{id}")
+    public Optional<CategoryDTO> findById(@PathVariable Long id){
+        Category findCategory = findByIdCategoryUseCase.execute(id);
+        CategoryDTO findCategoryDto = categoryMapper.toDto(findCategory);
+        return Optional.of(findCategoryDto);
     }
 
 }
