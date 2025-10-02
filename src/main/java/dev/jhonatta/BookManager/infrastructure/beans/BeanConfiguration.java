@@ -3,6 +3,8 @@ package dev.jhonatta.BookManager.infrastructure.beans;
 import dev.jhonatta.BookManager.core.gateway.CategoryGateway;
 import dev.jhonatta.BookManager.core.usercase.category.create.CreateCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.create.CreateCategoryUseCaseImp;
+import dev.jhonatta.BookManager.core.usercase.category.delete.DeleteCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.delete.DeleteCategoryUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.category.findAll.FindCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.findAll.FindCategoryUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.category.findById.FindByIdCategoryUseCase;
@@ -33,6 +35,11 @@ public class BeanConfiguration {
     @Bean
     public UpdateCategoryUseCase updateCategory (CategoryGateway categoryGateway){
         return new UpdateCategoryUseCaseImp(categoryGateway);
+    }
+
+    @Bean
+    DeleteCategoryUseCase deleteCategory (CategoryGateway categoryGateway){
+        return new DeleteCategoryUseCaseImp(categoryGateway);
     }
 
 }

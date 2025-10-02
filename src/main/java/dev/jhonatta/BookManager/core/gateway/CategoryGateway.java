@@ -14,5 +14,7 @@ public interface CategoryGateway {
 
     Category updateCategory(Long id, Category category);
 
+    void deleteCategory(Long id);
+
 }
 

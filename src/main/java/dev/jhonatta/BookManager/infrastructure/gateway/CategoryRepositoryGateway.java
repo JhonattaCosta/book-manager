@@ -55,5 +55,10 @@ public class CategoryRepositoryGateway implements CategoryGateway {
         }
         return null;
     }
+
+    @Override
+    public void deleteCategory(Long id) {
+        repository.deleteById(id);
+    }
 }
 

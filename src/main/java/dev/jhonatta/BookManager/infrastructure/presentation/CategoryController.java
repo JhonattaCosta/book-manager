@@ -2,6 +2,7 @@ package dev.jhonatta.BookManager.infrastructure.presentation;
 
 import dev.jhonatta.BookManager.core.entities.Category;
 import dev.jhonatta.BookManager.core.usercase.category.create.CreateCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.delete.DeleteCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.findById.FindByIdCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.findAll.FindCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.update.UpdateCategoryUseCase;
@@ -23,6 +24,7 @@ public class CategoryController {
     private final FindCategoryUseCase findCategoryUseCase;
     private final FindByIdCategoryUseCase findByIdCategoryUseCase;
     private final UpdateCategoryUseCase updateCategoryUseCase;
+    private final DeleteCategoryUseCase deleteCategoryUseCase;
     private final CategoryMapper categoryMapper;
 
 
@@ -53,6 +55,11 @@ public class CategoryController {
         Category foundCategory = updateCategoryUseCase.execute(id,categoryMapper.toEntity(categoryDTO));
         CategoryDTO updatedCategory = categoryMapper.toDto(foundCategory);
         return Optional.of(updatedCategory);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteCategoryById(@PathVariable Long id){
+        deleteCategoryUseCase.execute(id);
     }
 
 }
