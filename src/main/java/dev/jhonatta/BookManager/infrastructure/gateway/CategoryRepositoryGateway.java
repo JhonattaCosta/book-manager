@@ -41,4 +41,19 @@ public class CategoryRepositoryGateway implements CategoryGateway {
         return mapper.toDomain(findCategory);
     }
 
+    @Override
+    public Category updateCategory(Long id, Category category) {
+
+        Optional<CategoryEntity> entityOpt = repository.findById(id);
+        if (entityOpt.isPresent()){
+            CategoryEntity entity = entityOpt.get();
+            if ( category.name() != null ){
+               entity.setName(category.name());
+            }
+            CategoryEntity categorySave = repository.save(entity);
+            return mapper.toDomain(categorySave);
+        }
+        return null;
+    }
 }
+

@@ -12,5 +12,7 @@ public interface CategoryGateway {
 
     Category findByIdCategory(Long id);
 
+    Category updateCategory(Long id, Category category);
+
 }
 

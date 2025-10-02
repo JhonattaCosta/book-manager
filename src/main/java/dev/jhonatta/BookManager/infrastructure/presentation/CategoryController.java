@@ -1,9 +1,10 @@
 package dev.jhonatta.BookManager.infrastructure.presentation;
 
 import dev.jhonatta.BookManager.core.entities.Category;
-import dev.jhonatta.BookManager.core.usercase.category.CreateCategoryUseCase;
-import dev.jhonatta.BookManager.core.usercase.category.FindByIdCategoryUseCase;
-import dev.jhonatta.BookManager.core.usercase.category.FindCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.create.CreateCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.findById.FindByIdCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.findAll.FindCategoryUseCase;
+import dev.jhonatta.BookManager.core.usercase.category.update.UpdateCategoryUseCase;
 import dev.jhonatta.BookManager.infrastructure.dtos.CategoryDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.CategoryMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class CategoryController {
     private final CreateCategoryUseCase createCategoryUseCase;
     private final FindCategoryUseCase findCategoryUseCase;
     private final FindByIdCategoryUseCase findByIdCategoryUseCase;
+    private final UpdateCategoryUseCase updateCategoryUseCase;
     private final CategoryMapper categoryMapper;
 
 
@@ -44,6 +46,13 @@ public class CategoryController {
         Category findCategory = findByIdCategoryUseCase.execute(id);
         CategoryDTO findCategoryDto = categoryMapper.toDto(findCategory);
         return Optional.of(findCategoryDto);
+    }
+
+    @PatchMapping("/update/{id}")
+    public Optional<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+        Category foundCategory = updateCategoryUseCase.execute(id,categoryMapper.toEntity(categoryDTO));
+        CategoryDTO updatedCategory = categoryMapper.toDto(foundCategory);
+        return Optional.of(updatedCategory);
     }
 
 }
