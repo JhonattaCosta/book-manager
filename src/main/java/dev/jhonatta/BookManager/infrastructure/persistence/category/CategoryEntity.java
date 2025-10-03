@@ -1,4 +1,4 @@
-package dev.jhonatta.BookManager.infrastructure.persistence;
+package dev.jhonatta.BookManager.infrastructure.persistence.category;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
