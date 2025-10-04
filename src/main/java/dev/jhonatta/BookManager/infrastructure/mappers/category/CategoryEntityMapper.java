@@ -1,10 +1,8 @@
-package dev.jhonatta.BookManager.infrastructure.mappers;
+package dev.jhonatta.BookManager.infrastructure.mappers.category;
 
 import dev.jhonatta.BookManager.core.entities.Category;
-import dev.jhonatta.BookManager.infrastructure.persistence.CategoryEntity;
+import dev.jhonatta.BookManager.infrastructure.persistence.category.CategoryEntity;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 @Component
 public class CategoryEntityMapper {

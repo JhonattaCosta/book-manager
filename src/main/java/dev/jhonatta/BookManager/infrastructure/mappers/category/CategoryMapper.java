@@ -1,7 +1,7 @@
-package dev.jhonatta.BookManager.infrastructure.mappers;
+package dev.jhonatta.BookManager.infrastructure.mappers.category;
 
 import dev.jhonatta.BookManager.core.entities.Category;
-import dev.jhonatta.BookManager.infrastructure.dtos.CategoryDTO;
+import dev.jhonatta.BookManager.infrastructure.dtos.category.CategoryDTO;
 import org.springframework.stereotype.Component;
 
 @Component

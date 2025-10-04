@@ -1,4 +1,4 @@
-package dev.jhonatta.BookManager.infrastructure.persistence;
+package dev.jhonatta.BookManager.infrastructure.persistence.author;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
@@ -7,11 +7,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "category")
+@Table(name = "author")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class CategoryEntity {
+public class AuthorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

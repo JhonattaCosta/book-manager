@@ -3,9 +3,9 @@ package dev.jhonatta.BookManager.infrastructure.gateway;
 import dev.jhonatta.BookManager.core.entities.Category;
 import dev.jhonatta.BookManager.core.exceptions.CategoryNotFoundException;
 import dev.jhonatta.BookManager.core.gateway.CategoryGateway;
-import dev.jhonatta.BookManager.infrastructure.mappers.CategoryEntityMapper;
-import dev.jhonatta.BookManager.infrastructure.persistence.CategoryEntity;
-import dev.jhonatta.BookManager.infrastructure.persistence.CategoryRepository;
+import dev.jhonatta.BookManager.infrastructure.mappers.category.CategoryEntityMapper;
+import dev.jhonatta.BookManager.infrastructure.persistence.category.CategoryEntity;
+import dev.jhonatta.BookManager.infrastructure.persistence.category.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

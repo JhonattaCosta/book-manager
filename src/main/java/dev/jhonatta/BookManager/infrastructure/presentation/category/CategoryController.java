@@ -1,4 +1,4 @@
-package dev.jhonatta.BookManager.infrastructure.presentation;
+package dev.jhonatta.BookManager.infrastructure.presentation.category;
 
 import dev.jhonatta.BookManager.core.entities.Category;
 import dev.jhonatta.BookManager.core.usercase.category.create.CreateCategoryUseCase;
@@ -6,8 +6,8 @@ import dev.jhonatta.BookManager.core.usercase.category.delete.DeleteCategoryUseC
 import dev.jhonatta.BookManager.core.usercase.category.findById.FindByIdCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.findAll.FindCategoryUseCase;
 import dev.jhonatta.BookManager.core.usercase.category.update.UpdateCategoryUseCase;
-import dev.jhonatta.BookManager.infrastructure.dtos.CategoryDTO;
-import dev.jhonatta.BookManager.infrastructure.mappers.CategoryMapper;
+import dev.jhonatta.BookManager.infrastructure.dtos.category.CategoryDTO;
+import dev.jhonatta.BookManager.infrastructure.mappers.category.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
