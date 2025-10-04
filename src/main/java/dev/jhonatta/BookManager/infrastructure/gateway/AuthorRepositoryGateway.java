@@ -56,4 +56,9 @@ public class AuthorRepositoryGateway implements AuthorGateway {
         }
         return null;
     }
+
+    @Override
+    public void delete(Long id) {
+        repository.deleteById(id);
+    }
 }

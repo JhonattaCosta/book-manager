@@ -13,4 +13,6 @@ public interface AuthorGateway {
     Author findById (Long id);
 
     Author update (Long id, Author author);
+
+    void delete(Long id);
 }

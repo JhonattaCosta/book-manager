@@ -3,6 +3,8 @@ package dev.jhonatta.BookManager.infrastructure.beans;
 import dev.jhonatta.BookManager.core.gateway.AuthorGateway;
 import dev.jhonatta.BookManager.core.usercase.author.create.CreateAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.create.CreateAuthorUseCaseImp;
+import dev.jhonatta.BookManager.core.usercase.author.delete.DeleteAuthorUseCase;
+import dev.jhonatta.BookManager.core.usercase.author.delete.DeleteAuthorUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.author.findall.FindAllAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.findall.FindAllAuthorUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.author.findbyid.FindByIdAuthorUseCase;
@@ -33,5 +35,10 @@ public class AuthorBeanConfiguration {
     @Bean
     UpdateAuthorUseCase update (AuthorGateway authorGateway){
         return new UpdateAuthorUseCaseImp(authorGateway);
+    }
+
+    @Bean
+    DeleteAuthorUseCase delete (AuthorGateway authorGateway){
+        return new DeleteAuthorUseCaseImp(authorGateway);
     }
 }

@@ -2,6 +2,7 @@ package dev.jhonatta.BookManager.infrastructure.presentation.author;
 
 import dev.jhonatta.BookManager.core.entities.Author;
 import dev.jhonatta.BookManager.core.usercase.author.create.CreateAuthorUseCase;
+import dev.jhonatta.BookManager.core.usercase.author.delete.DeleteAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.findall.FindAllAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.findbyid.FindByIdAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.update.UpdateAuthorUseCase;
@@ -23,6 +24,7 @@ public class AuthorController {
     private final FindAllAuthorUseCase findAllAuthorUseCase;
     private final FindByIdAuthorUseCase findByIdAuthorUseCase;
     private final UpdateAuthorUseCase updateAuthorUseCase;
+    private final DeleteAuthorUseCase deleteAuthorUseCase;
     private final AuthorMapper authorMapper;
 
     @PostMapping("/createauthor")
@@ -49,5 +51,10 @@ public class AuthorController {
         Author author = updateAuthorUseCase.execute(id, authorMapper.toEntity(authorDTO));
         AuthorDTO updatedAuthor = authorMapper.toDto(author);
         return Optional.of(updatedAuthor);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteById (@PathVariable Long id){
+        deleteAuthorUseCase.execute(id);
     }
 }
