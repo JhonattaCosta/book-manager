@@ -9,4 +9,6 @@ public interface AuthorGateway {
     Author createAuthor (Author author);
 
     List<Author> findAll ();
+
+    Author findById (Long id);
 }

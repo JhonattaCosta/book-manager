@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -31,4 +32,15 @@ public class AuthorRepositoryGateway implements AuthorGateway {
                 .map(mapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Author findById(Long id) {
+        Optional<AuthorEntity> entityOpt = repository.findById(id);
+        if (entityOpt.isPresent()){
+            AuthorEntity entity = entityOpt.get();
+            return mapper.toDomain(entity);
+        }
+        return null;
+    }
+
 }
