@@ -1,4 +1,4 @@
-package dev.jhonatta.BookManager.core.usercase.author;
+package dev.jhonatta.BookManager.core.usercase.author.create;
 
 import dev.jhonatta.BookManager.core.entities.Author;
 
