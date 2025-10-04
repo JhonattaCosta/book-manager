@@ -29,4 +29,9 @@ public class AuthorBeanConfiguration {
     FindByIdAuthorUseCase findById (AuthorGateway authorGateway){
         return new FindByIdAuthorUseCaseImp(authorGateway);
     }
+
+    @Bean
+    UpdateAuthorUseCase update (AuthorGateway authorGateway){
+        return new UpdateAuthorUseCaseImp(authorGateway);
+    }
 }

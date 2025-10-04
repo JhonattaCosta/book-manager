@@ -4,6 +4,7 @@ import dev.jhonatta.BookManager.core.entities.Author;
 import dev.jhonatta.BookManager.core.usercase.author.create.CreateAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.findall.FindAllAuthorUseCase;
 import dev.jhonatta.BookManager.core.usercase.author.findbyid.FindByIdAuthorUseCase;
+import dev.jhonatta.BookManager.core.usercase.author.update.UpdateAuthorUseCase;
 import dev.jhonatta.BookManager.infrastructure.dtos.author.AuthorDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.author.AuthorMapper;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class AuthorController {
     private final CreateAuthorUseCase createAuthorUseCase;
     private final FindAllAuthorUseCase findAllAuthorUseCase;
     private final FindByIdAuthorUseCase findByIdAuthorUseCase;
+    private final UpdateAuthorUseCase updateAuthorUseCase;
     private final AuthorMapper authorMapper;
 
     @PostMapping("/createauthor")
@@ -42,4 +44,10 @@ public class AuthorController {
         return Optional.of(authorMapper.toDto(author));
     }
 
+    @PatchMapping("/update/{id}")
+    public Optional<AuthorDTO> update(@PathVariable Long id, @RequestBody AuthorDTO authorDTO){
+        Author author = updateAuthorUseCase.execute(id, authorMapper.toEntity(authorDTO));
+        AuthorDTO updatedAuthor = authorMapper.toDto(author);
+        return Optional.of(updatedAuthor);
+    }
 }

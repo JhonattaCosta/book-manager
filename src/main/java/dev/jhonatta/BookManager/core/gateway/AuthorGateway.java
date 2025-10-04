@@ -11,4 +11,6 @@ public interface AuthorGateway {
     List<Author> findAll ();
 
     Author findById (Long id);
+
+    Author update (Long id, Author author);
 }

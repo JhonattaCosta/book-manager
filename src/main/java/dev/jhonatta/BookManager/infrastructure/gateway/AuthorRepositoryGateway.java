@@ -43,4 +43,17 @@ public class AuthorRepositoryGateway implements AuthorGateway {
         return null;
     }
 
+    @Override
+    public Author update(Long id, Author author) {
+        Optional<AuthorEntity> entityOpt = repository.findById(id);
+        if (entityOpt.isPresent()){
+            AuthorEntity entity = entityOpt.get();
+            if (author.name() != null){
+                entity.setName(author.name());
+                AuthorEntity authorSave = repository.save(entity);
+                return mapper.toDomain(authorSave);
+            }
+        }
+        return null;
+    }
 }
