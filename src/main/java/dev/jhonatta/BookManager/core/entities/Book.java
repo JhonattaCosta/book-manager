@@ -9,5 +9,5 @@ public record Book(Long id,
                    LocalDateTime releaseDay,
                    String identifier,
                    List<Category> categories,
-                   Author author) {
+                   List<Author> author) {
 }
