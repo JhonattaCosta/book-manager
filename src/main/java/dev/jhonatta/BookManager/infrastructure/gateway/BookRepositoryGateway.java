@@ -8,6 +8,9 @@ import dev.jhonatta.BookManager.infrastructure.persistence.book.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Component
 @RequiredArgsConstructor
@@ -21,5 +24,10 @@ public class BookRepositoryGateway implements BookGateway {
         BookEntity entity = mapper.toEntity(book);
         BookEntity entitySave = repository.save(entity);
         return mapper.toDomain(entitySave);
+    }
+
+    @Override
+    public List<Book> findAll() {
+        return repository.findAll().stream().map(mapper::toDomain).collect(Collectors.toList());
     }
 }

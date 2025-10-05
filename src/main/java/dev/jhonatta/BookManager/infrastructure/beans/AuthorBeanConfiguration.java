@@ -23,22 +23,22 @@ public class AuthorBeanConfiguration {
     }
 
     @Bean
-    public FindAllAuthorUseCase findAll (AuthorGateway authorGateway){
+    public FindAllAuthorUseCase findAllAuthor (AuthorGateway authorGateway){
         return  new FindAllAuthorUseCaseImp(authorGateway);
     }
 
     @Bean
-    FindByIdAuthorUseCase findById (AuthorGateway authorGateway){
+    FindByIdAuthorUseCase findByIdAuthor (AuthorGateway authorGateway){
         return new FindByIdAuthorUseCaseImp(authorGateway);
     }
 
     @Bean
-    UpdateAuthorUseCase update (AuthorGateway authorGateway){
+    UpdateAuthorUseCase updateAuthor (AuthorGateway authorGateway){
         return new UpdateAuthorUseCaseImp(authorGateway);
     }
 
     @Bean
-    DeleteAuthorUseCase delete (AuthorGateway authorGateway){
+    DeleteAuthorUseCase deleteAuthor (AuthorGateway authorGateway){
         return new DeleteAuthorUseCaseImp(authorGateway);
     }
 }
