@@ -16,4 +16,6 @@ public interface BookGateway {
 
     Book updateBook (Long id,Book book);
 
+    void deleteBook(Long id);
+
 }

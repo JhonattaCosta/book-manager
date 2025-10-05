@@ -91,4 +91,9 @@ public class BookRepositoryGateway implements BookGateway {
         }
        return null;
     }
+
+    @Override
+    public void deleteBook(Long id) {
+        repository.deleteById(id);
+    }
 }

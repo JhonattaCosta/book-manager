@@ -3,6 +3,8 @@ package dev.jhonatta.BookManager.infrastructure.beans;
 import dev.jhonatta.BookManager.core.gateway.BookGateway;
 import dev.jhonatta.BookManager.core.usercase.book.create.CreateBookUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.create.CreateBookUseCaseImp;
+import dev.jhonatta.BookManager.core.usercase.book.delete.DeleteBookUseCase;
+import dev.jhonatta.BookManager.core.usercase.book.delete.DeleteBookUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.book.findall.FindAllBookUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.findall.FindAllBookUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.book.findbyauthorname.FindByBooksByAuthorNameUseCase;
@@ -11,6 +13,7 @@ import dev.jhonatta.BookManager.core.usercase.book.findyname.FindByNameUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.findyname.FindByNameUseCaseImp;
 import dev.jhonatta.BookManager.core.usercase.book.update.UpdateBookUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.update.UpdateBookUseCaseImp;
+import org.hibernate.sql.Delete;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.repository.query.Param;
@@ -41,5 +44,10 @@ public class BookBeanConfiguration {
     @Bean
     public UpdateBookUseCase updateBoo(BookGateway bookGateway){
         return new UpdateBookUseCaseImp(bookGateway);
+    }
+
+    @Bean
+    public DeleteBookUseCase deleteBook(BookGateway bookGateway){
+        return new DeleteBookUseCaseImp(bookGateway);
     }
 }
