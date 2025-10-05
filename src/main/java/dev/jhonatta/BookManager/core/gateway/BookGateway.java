@@ -10,4 +10,6 @@ public interface BookGateway {
 
     List<Book> findAll ();
 
+    List<Book> findByName (String name);
+
 }
