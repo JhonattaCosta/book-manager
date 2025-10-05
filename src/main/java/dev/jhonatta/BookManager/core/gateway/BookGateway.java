@@ -12,4 +12,6 @@ public interface BookGateway {
 
     List<Book> findByName (String name);
 
+    List<Book> findByAuthorName (String authorName);
+
 }
