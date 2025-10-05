@@ -1,0 +1,25 @@
+package dev.jhonatta.BookManager.infrastructure.gateway;
+
+import dev.jhonatta.BookManager.core.entities.Book;
+import dev.jhonatta.BookManager.core.gateway.BookGateway;
+import dev.jhonatta.BookManager.infrastructure.mappers.book.BookEntityMapper;
+import dev.jhonatta.BookManager.infrastructure.persistence.book.BookEntity;
+import dev.jhonatta.BookManager.infrastructure.persistence.book.BookRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+
+@Component
+@RequiredArgsConstructor
+public class BookRepositoryGateway implements BookGateway {
+
+    private final BookRepository repository;
+    private final BookEntityMapper mapper;
+
+    @Override
+    public Book createBook(Book book) {
+        BookEntity entity = mapper.toEntity(book);
+        BookEntity entitySave = repository.save(entity);
+        return mapper.toDomain(entitySave);
+    }
+}

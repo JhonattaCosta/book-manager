@@ -1,0 +1,26 @@
+package dev.jhonatta.BookManager.infrastructure.presentation.book;
+
+import dev.jhonatta.BookManager.core.entities.Book;
+import dev.jhonatta.BookManager.core.usercase.book.create.CreateBookUseCase;
+import dev.jhonatta.BookManager.infrastructure.dtos.book.BookDTO;
+import dev.jhonatta.BookManager.infrastructure.mappers.book.BookMapper;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("bookmanager/book")
+@RequiredArgsConstructor
+public class BookController {
+
+    private final CreateBookUseCase createBookUseCase;
+    private final BookMapper mapper;
+
+    @PostMapping("/create")
+    public BookDTO createBook (@RequestBody BookDTO bookDTO){
+        Book newBook = createBookUseCase.execute(mapper.toEntity(bookDTO));
+        return mapper.toDto(newBook);
+    }
+
+}
