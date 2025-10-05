@@ -5,6 +5,7 @@ import dev.jhonatta.BookManager.core.usercase.book.create.CreateBookUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.findall.FindAllBookUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.findbyauthorname.FindByBooksByAuthorNameUseCase;
 import dev.jhonatta.BookManager.core.usercase.book.findyname.FindByNameUseCase;
+import dev.jhonatta.BookManager.core.usercase.book.update.UpdateBookUseCase;
 import dev.jhonatta.BookManager.infrastructure.dtos.book.BookDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.book.BookMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class BookController {
     private final FindAllBookUseCase findAllBookUseCase;
     private final FindByNameUseCase findByNameUseCase;
     private final FindByBooksByAuthorNameUseCase findByAuthorNameUseCase;
+    private final UpdateBookUseCase updateBookUseCase;
     private final BookMapper mapper;
 
     @PostMapping("/create")
@@ -43,6 +45,12 @@ public class BookController {
     @GetMapping("/findauthor/{author}")
     public List<BookDTO> findByAuthor(@PathVariable String author){
         return findByAuthorNameUseCase.execute(author).stream().map(mapper::toDto).collect(Collectors.toList());
+    }
+
+    @PatchMapping("/update/{id}")
+    public BookDTO updateBook(@PathVariable Long id,@RequestBody BookDTO bookDTO){
+        Book bookUpdate = updateBookUseCase.execute(id, mapper.toEntity(bookDTO));
+        return mapper.toDto(bookUpdate);
     }
 
 

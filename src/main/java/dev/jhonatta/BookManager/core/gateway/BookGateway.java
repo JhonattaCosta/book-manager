@@ -14,4 +14,6 @@ public interface BookGateway {
 
     List<Book> findByAuthorName (String authorName);
 
+    Book updateBook (Long id,Book book);
+
 }
