@@ -37,10 +37,10 @@ public class CategoryController {
     }
 
     @GetMapping("/listallcategory")
-    public List<CategoryDTO> findAll(){
-        return findCategoryUseCase.execute().stream()
+    public ResponseEntity<List<CategoryDTO>> findAll(){
+        return ResponseEntity.ok(findCategoryUseCase.execute().stream()
                 .map(categoryMapper::toDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
 
