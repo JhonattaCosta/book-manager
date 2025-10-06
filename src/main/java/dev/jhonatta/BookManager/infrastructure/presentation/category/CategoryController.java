@@ -9,6 +9,8 @@ import dev.jhonatta.BookManager.core.usercase.category.update.UpdateCategoryUseC
 import dev.jhonatta.BookManager.infrastructure.dtos.category.CategoryDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.category.CategoryMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,9 +32,8 @@ public class CategoryController {
 
 
     @PostMapping("/createcategory")
-    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO){
-        Category newCategory = createCategoryUseCase.execute(categoryMapper.toEntity(categoryDTO));
-        return categoryMapper.toDto(newCategory);
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryMapper.toDto(createCategoryUseCase.execute(categoryMapper.toEntity(categoryDTO))));
     }
 
     @GetMapping("/listallcategory")
