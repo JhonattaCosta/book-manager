@@ -45,10 +45,8 @@ public class CategoryController {
 
 
     @GetMapping("/listbyid/{id}")
-    public Optional<CategoryDTO> findById(@PathVariable Long id){
-        Category findCategory = findByIdCategoryUseCase.execute(id);
-        CategoryDTO findCategoryDto = categoryMapper.toDto(findCategory);
-        return Optional.of(findCategoryDto);
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.FOUND).body(categoryMapper.toDto(findByIdCategoryUseCase.execute(id)));
     }
 
     @PatchMapping("/update/{id}")
