@@ -50,10 +50,8 @@ public class CategoryController {
     }
 
     @PatchMapping("/update/{id}")
-    public Optional<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
-        Category foundCategory = updateCategoryUseCase.execute(id,categoryMapper.toEntity(categoryDTO));
-        CategoryDTO updatedCategory = categoryMapper.toDto(foundCategory);
-        return Optional.of(updatedCategory);
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoryMapper.toDto(updateCategoryUseCase.execute(id,categoryMapper.toEntity(categoryDTO))));
     }
 
     @DeleteMapping("/delete/{id}")
