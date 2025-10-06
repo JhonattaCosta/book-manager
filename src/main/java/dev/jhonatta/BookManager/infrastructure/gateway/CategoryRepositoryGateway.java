@@ -21,10 +21,7 @@ public class CategoryRepositoryGateway implements CategoryGateway {
 
     @Override
     public Category createCategory(Category category) {
-        CategoryEntity entity = mapper.toEntity(category);
-        CategoryEntity newCategory = repository.save(entity);
-        return mapper.toDomain(newCategory);
-
+        return mapper.toDomain(repository.save(mapper.toEntity(category)));
     }
 
     @Override
@@ -43,22 +40,28 @@ public class CategoryRepositoryGateway implements CategoryGateway {
 
     @Override
     public Category updateCategory(Long id, Category category) {
-
         Optional<CategoryEntity> entityOpt = repository.findById(id);
-        if (entityOpt.isPresent()){
+        CategoryEntity findCategory = entityOpt.orElseThrow(()->
+                new CategoryNotFoundException("Categoria não encontrada com ID: " + id)
+        );
+        if(entityOpt.isPresent()){
             CategoryEntity entity = entityOpt.get();
-            if ( category.name() != null ){
-               entity.setName(category.name());
+            if (category.name() != null && !category.name().isBlank()){
+                entity.setName(category.name());
             }
-            CategoryEntity categorySave = repository.save(entity);
-            return mapper.toDomain(categorySave);
+            CategoryEntity updatedCategory = repository.save(entity);
+            return mapper.toDomain(updatedCategory);
         }
-        return null;
+        return mapper.toDomain(findCategory);
     }
 
     @Override
     public void deleteCategory(Long id) {
-        repository.deleteById(id);
+        CategoryEntity entity = repository.findById(id)
+        .orElseThrow(()->
+                new CategoryNotFoundException("Categoria não encontrada com ID: " + id)
+        );
+        repository.delete(entity);
     }
 }
 
