@@ -18,6 +18,4 @@ public interface BookGateway {
 
     void deleteBook(Long id);
 
-    boolean existByName(String name);
-
 }
