@@ -1,6 +1,7 @@
 package dev.jhonatta.BookManager.infrastructure.gateway;
 
 import dev.jhonatta.BookManager.core.entities.Author;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 import dev.jhonatta.BookManager.core.gateway.AuthorGateway;
 import dev.jhonatta.BookManager.infrastructure.mappers.author.AuthorEntityMapper;
 import dev.jhonatta.BookManager.infrastructure.persistence.author.AuthorEntity;
@@ -21,9 +22,7 @@ public class AuthorRepositoryGateway implements AuthorGateway {
 
     @Override
     public Author createAuthor(Author author) {
-        AuthorEntity entity = mapper.toEntity(author);
-        AuthorEntity newEntity = repository.save(entity);
-        return mapper.toDomain(newEntity);
+        return mapper.toDomain(repository.save(mapper.toEntity(author)));
     }
 
     @Override
@@ -35,31 +34,37 @@ public class AuthorRepositoryGateway implements AuthorGateway {
 
     @Override
     public Author findById(Long id) {
-        Optional<AuthorEntity> entityOpt = repository.findById(id);
-        if (entityOpt.isPresent()){
-            AuthorEntity entity = entityOpt.get();
-            return mapper.toDomain(entity);
-        }
-        return null;
+        Optional<AuthorEntity> entity = repository.findById(id);
+        AuthorEntity findAuthor = entity.orElseThrow(()->
+                new EntityNotFoundException("Author Não encontrado com ID: " + id)
+                );
+        return mapper.toDomain(findAuthor);
     }
 
     @Override
     public Author update(Long id, Author author) {
         Optional<AuthorEntity> entityOpt = repository.findById(id);
+        AuthorEntity findAuthor = entityOpt.orElseThrow(()->
+                new EntityNotFoundException("Author Não encontrado com ID: " + id)
+                );
         if (entityOpt.isPresent()){
             AuthorEntity entity = entityOpt.get();
-            if (author.name() != null){
+            if (author.name() != null && !author.name().isBlank()){
                 entity.setName(author.name());
-                AuthorEntity authorSave = repository.save(entity);
-                return mapper.toDomain(authorSave);
             }
+            AuthorEntity authorSave = repository.save(entity);
+            return mapper.toDomain(authorSave);
         }
-        return null;
+        return mapper.toDomain(findAuthor);
     }
 
     @Override
     public void delete(Long id) {
-        repository.deleteById(id);
+        AuthorEntity entity = repository.findById(id)
+                .orElseThrow(()->
+                        new EntityNotFoundException("Author Não encontrado com ID: " + id)
+                );
+        repository.delete(entity);
     }
 
     @Override
