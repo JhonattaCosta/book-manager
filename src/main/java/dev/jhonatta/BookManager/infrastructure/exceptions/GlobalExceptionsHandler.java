@@ -1,6 +1,6 @@
 package dev.jhonatta.BookManager.infrastructure.exceptions;
 
-import dev.jhonatta.BookManager.core.exceptions.CategoryNotFoundException;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 import dev.jhonatta.BookManager.core.exceptions.DuplicateNameException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +13,8 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionsHandler {
 
-    @ExceptionHandler(CategoryNotFoundException.class)
-    public ResponseEntity<Map<String, String>> handleCategoryNotFound(CategoryNotFoundException ex){
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleCategoryNotFound(EntityNotFoundException ex){
         Map<String, String> response = new HashMap<>();
         response.put("Error ", ex.getMessage());
         response.put("Message: ", "Please, insert a valid Id for your category and try again");

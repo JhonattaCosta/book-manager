@@ -1,8 +1,8 @@
 package dev.jhonatta.BookManager.core.usercase.category.delete;
 
-import dev.jhonatta.BookManager.core.exceptions.CategoryNotFoundException;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 
 public interface DeleteCategoryUseCase {
 
-    void execute(Long id) throws CategoryNotFoundException;
+    void execute(Long id) throws EntityNotFoundException;
 }

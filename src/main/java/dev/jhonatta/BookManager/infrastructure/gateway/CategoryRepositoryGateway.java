@@ -1,7 +1,7 @@
 package dev.jhonatta.BookManager.infrastructure.gateway;
 
 import dev.jhonatta.BookManager.core.entities.Category;
-import dev.jhonatta.BookManager.core.exceptions.CategoryNotFoundException;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 import dev.jhonatta.BookManager.core.gateway.CategoryGateway;
 import dev.jhonatta.BookManager.infrastructure.mappers.category.CategoryEntityMapper;
 import dev.jhonatta.BookManager.infrastructure.persistence.category.CategoryEntity;
@@ -33,7 +33,7 @@ public class CategoryRepositoryGateway implements CategoryGateway {
     public Category findByIdCategory(Long id) {
         Optional<CategoryEntity> entity = repository.findById(id);
         CategoryEntity findCategory = entity.orElseThrow(()->
-                new CategoryNotFoundException("Categoria não encontrada com ID: " + id)
+                new EntityNotFoundException("Categoria não encontrada com ID: " + id)
         );
         return mapper.toDomain(findCategory);
     }
@@ -42,7 +42,7 @@ public class CategoryRepositoryGateway implements CategoryGateway {
     public Category updateCategory(Long id, Category category) {
         Optional<CategoryEntity> entityOpt = repository.findById(id);
         CategoryEntity findCategory = entityOpt.orElseThrow(()->
-                new CategoryNotFoundException("Categoria não encontrada com ID: " + id)
+                new EntityNotFoundException("Categoria não encontrada com ID: " + id)
         );
         if(entityOpt.isPresent()){
             CategoryEntity entity = entityOpt.get();
@@ -59,7 +59,7 @@ public class CategoryRepositoryGateway implements CategoryGateway {
     public void deleteCategory(Long id) {
         CategoryEntity entity = repository.findById(id)
         .orElseThrow(()->
-                new CategoryNotFoundException("Categoria não encontrada com ID: " + id)
+                new EntityNotFoundException("Categoria não encontrada com ID: " + id)
         );
         repository.delete(entity);
     }

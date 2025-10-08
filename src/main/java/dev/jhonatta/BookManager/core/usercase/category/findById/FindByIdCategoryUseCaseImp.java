@@ -1,7 +1,7 @@
 package dev.jhonatta.BookManager.core.usercase.category.findById;
 
 import dev.jhonatta.BookManager.core.entities.Category;
-import dev.jhonatta.BookManager.core.exceptions.CategoryNotFoundException;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 import dev.jhonatta.BookManager.core.gateway.CategoryGateway;
 
 public class FindByIdCategoryUseCaseImp implements FindByIdCategoryUseCase{
@@ -13,7 +13,7 @@ public class FindByIdCategoryUseCaseImp implements FindByIdCategoryUseCase{
     }
 
     @Override
-    public Category execute(Long id) throws CategoryNotFoundException {
+    public Category execute(Long id) throws EntityNotFoundException {
         return categoryGateway.findByIdCategory(id);
     }
 }
