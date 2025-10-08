@@ -63,5 +63,11 @@ public class CategoryRepositoryGateway implements CategoryGateway {
         );
         repository.delete(entity);
     }
+
+    @Override
+    public boolean existByName(String name) {
+        return repository.findAll().stream()
+                .anyMatch(category -> category.getName().equalsIgnoreCase(name));
+    }
 }
 

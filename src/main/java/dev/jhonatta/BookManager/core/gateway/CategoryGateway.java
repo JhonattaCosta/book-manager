@@ -16,5 +16,7 @@ public interface CategoryGateway {
 
     void deleteCategory(Long id);
 
+    boolean existByName(String name);
+
 }
 
