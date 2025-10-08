@@ -96,4 +96,10 @@ public class BookRepositoryGateway implements BookGateway {
     public void deleteBook(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public boolean existByName(String name) {
+        return repository.findAll().stream()
+                .anyMatch(book -> book.getName().equalsIgnoreCase(name));
+    }
 }
