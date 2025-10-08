@@ -61,4 +61,10 @@ public class AuthorRepositoryGateway implements AuthorGateway {
     public void delete(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public boolean existByName(String name) {
+        return repository.findAll().stream()
+                .anyMatch(author -> author.getName().equalsIgnoreCase(name));
+    }
 }
