@@ -10,6 +10,8 @@ import dev.jhonatta.BookManager.core.usercase.book.update.UpdateBookUseCase;
 import dev.jhonatta.BookManager.infrastructure.dtos.book.BookDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.book.BookMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,35 +31,34 @@ public class BookController {
     private final BookMapper mapper;
 
     @PostMapping("/create")
-    public BookDTO createBook (@RequestBody BookDTO bookDTO){
-        Book newBook = createBookUseCase.execute(mapper.toEntity(bookDTO));
-        return mapper.toDto(newBook);
+    public ResponseEntity<BookDTO> createBook (@RequestBody BookDTO bookDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(mapper.toDto(createBookUseCase.execute(mapper.toEntity(bookDTO))));
     }
 
     @GetMapping("/findall")
-    public List<BookDTO> findAll(){
-        return findAllBookUseCase.execute().stream().map(mapper::toDto).collect(Collectors.toList());
+    public ResponseEntity<List<BookDTO>> findAll(){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(findAllBookUseCase.execute().stream().map(mapper::toDto).collect(Collectors.toList()));
     }
 
     @GetMapping("/findname/{name}")
-    public List<BookDTO> findByName(@PathVariable String name){
-        return findByNameUseCase.execute(name).stream().map(mapper::toDto).collect(Collectors.toList());
+    public ResponseEntity<List<BookDTO>> findByName(@PathVariable String name){
+        return ResponseEntity.status(HttpStatus.FOUND).body(findByNameUseCase.execute(name).stream().map(mapper::toDto).collect(Collectors.toList()));
     }
 
     @GetMapping("/findauthor/{author}")
-    public List<BookDTO> findByAuthor(@PathVariable String author){
-        return findByAuthorNameUseCase.execute(author).stream().map(mapper::toDto).collect(Collectors.toList());
+    public ResponseEntity<List<BookDTO>> findByAuthor(@PathVariable String author){
+        return ResponseEntity.status(HttpStatus.FOUND).body(findByAuthorNameUseCase.execute(author).stream().map(mapper::toDto).collect(Collectors.toList()));
     }
 
     @PatchMapping("/update/{id}")
-    public BookDTO updateBook(@PathVariable Long id,@RequestBody BookDTO bookDTO){
-        Book bookUpdate = updateBookUseCase.execute(id, mapper.toEntity(bookDTO));
-        return mapper.toDto(bookUpdate);
+    public ResponseEntity<BookDTO> updateBook(@PathVariable Long id,@RequestBody BookDTO bookDTO){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.toDto(updateBookUseCase.execute(id, mapper.toEntity(bookDTO))));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteBook(@PathVariable Long id){
+    public ResponseEntity<Void> deleteBook(@PathVariable Long id){
         deleteBookUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 
 
