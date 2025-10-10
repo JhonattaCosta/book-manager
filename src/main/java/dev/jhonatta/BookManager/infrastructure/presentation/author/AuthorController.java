@@ -9,6 +9,8 @@ import dev.jhonatta.BookManager.core.usercase.author.update.UpdateAuthorUseCase;
 import dev.jhonatta.BookManager.infrastructure.dtos.author.AuthorDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.author.AuthorMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,33 +30,31 @@ public class AuthorController {
     private final AuthorMapper authorMapper;
 
     @PostMapping("/createauthor")
-    public AuthorDTO createAuthor (@RequestBody AuthorDTO authorDTO){
+    public ResponseEntity<AuthorDTO> createAuthor (@RequestBody AuthorDTO authorDTO){
         Author newAuthor = createAuthorUseCase.execute(authorMapper.toEntity(authorDTO));
-        return authorMapper.toDto(newAuthor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(authorMapper.toDto(newAuthor));
     }
 
     @GetMapping("/findall")
-    public List<AuthorDTO> findAll (){
-        return findAllAuthorUseCase.execute().stream()
+    public ResponseEntity<List<AuthorDTO>> findAll (){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(findAllAuthorUseCase.execute().stream()
                 .map(authorMapper::toDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
     @GetMapping("/findid/{id}")
-    public Optional<AuthorDTO> findById (@PathVariable Long id){
-        Author author = findByIdAuthorUseCase.execute(id);
-        return Optional.of(authorMapper.toDto(author));
+    public ResponseEntity<AuthorDTO> findById (@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.FOUND).body(authorMapper.toDto(findByIdAuthorUseCase.execute(id)));
     }
 
     @PatchMapping("/update/{id}")
-    public Optional<AuthorDTO> update(@PathVariable Long id, @RequestBody AuthorDTO authorDTO){
-        Author author = updateAuthorUseCase.execute(id, authorMapper.toEntity(authorDTO));
-        AuthorDTO updatedAuthor = authorMapper.toDto(author);
-        return Optional.of(updatedAuthor);
+    public ResponseEntity<AuthorDTO> update(@PathVariable Long id, @RequestBody AuthorDTO authorDTO){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(authorMapper.toDto(updateAuthorUseCase.execute(id, authorMapper.toEntity(authorDTO))));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteById (@PathVariable Long id){
+    public ResponseEntity<Void> deleteById (@PathVariable Long id){
         deleteAuthorUseCase.execute(id);
+        return ResponseEntity.noContent().build();
     }
 }

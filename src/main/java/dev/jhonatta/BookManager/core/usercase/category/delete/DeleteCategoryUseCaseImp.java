@@ -1,6 +1,6 @@
 package dev.jhonatta.BookManager.core.usercase.category.delete;
 
-import dev.jhonatta.BookManager.core.exceptions.CategoryNotFoundException;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 import dev.jhonatta.BookManager.core.gateway.CategoryGateway;
 
 public class DeleteCategoryUseCaseImp implements DeleteCategoryUseCase{
@@ -13,7 +13,7 @@ public class DeleteCategoryUseCaseImp implements DeleteCategoryUseCase{
     }
 
     @Override
-    public void execute(Long id) throws CategoryNotFoundException {
+    public void execute(Long id) throws EntityNotFoundException {
         categoryGateway.deleteCategory(id);
     }
 }

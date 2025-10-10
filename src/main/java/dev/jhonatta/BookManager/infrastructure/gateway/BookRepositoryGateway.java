@@ -1,7 +1,7 @@
 package dev.jhonatta.BookManager.infrastructure.gateway;
 
 import dev.jhonatta.BookManager.core.entities.Book;
-import dev.jhonatta.BookManager.core.entities.Category;
+import dev.jhonatta.BookManager.core.exceptions.EntityNotFoundException;
 import dev.jhonatta.BookManager.core.gateway.BookGateway;
 import dev.jhonatta.BookManager.infrastructure.mappers.book.BookEntityMapper;
 import dev.jhonatta.BookManager.infrastructure.persistence.author.AuthorEntity;
@@ -29,9 +29,7 @@ public class BookRepositoryGateway implements BookGateway {
 
     @Override
     public Book createBook(Book book) {
-        BookEntity entity = mapper.toEntity(book);
-        BookEntity entitySave = repository.save(entity);
-        return mapper.toDomain(entitySave);
+        return mapper.toDomain(repository.save(mapper.toEntity(book)));
     }
 
     @Override
@@ -52,18 +50,22 @@ public class BookRepositoryGateway implements BookGateway {
     @Override
     public Book updateBook(Long id, Book book){
         Optional<BookEntity> bookOpt = repository.findById(id);
+        BookEntity findBook = bookOpt.orElseThrow(()->
+                new EntityNotFoundException(
+                        "Livro com id: " + id + " Não foi encontrado!"
+                ));
         if (bookOpt.isPresent()){
             BookEntity bookEntity = bookOpt.get();
-           if(book.name() != null){
+           if(book.name() != null && !book.name().isBlank()){
                bookEntity.setName(book.name());
            }
-           if(book.description() != null){
+           if(book.description() != null && !book.description().isBlank()){
                bookEntity.setDescription(book.description());
            }
            if(book.releaseDay() != null){
                bookEntity.setReleaseDay(book.releaseDay());
            }
-           if(book.identifier() != null){
+           if(book.identifier() != null && !book.identifier().isBlank()){
                bookEntity.setIdentifier(book.identifier());
            }
            if (book.categories() != null && !book.categories().isEmpty()){
@@ -89,11 +91,16 @@ public class BookRepositoryGateway implements BookGateway {
            BookEntity updatedBook = repository.save(bookEntity);
             return mapper.toDomain(updatedBook);
         }
-       return null;
+       return mapper.toDomain(findBook);
     }
 
     @Override
     public void deleteBook(Long id) {
-        repository.deleteById(id);
+        BookEntity findBook = repository.findById(id).orElseThrow(()->
+                new EntityNotFoundException(
+                        "Livro com id: " + id + " Não foi encontrado!"
+                )
+            );
+        repository.delete(findBook);
     }
 }

@@ -9,6 +9,8 @@ import dev.jhonatta.BookManager.core.usercase.category.update.UpdateCategoryUseC
 import dev.jhonatta.BookManager.infrastructure.dtos.category.CategoryDTO;
 import dev.jhonatta.BookManager.infrastructure.mappers.category.CategoryMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,36 +32,32 @@ public class CategoryController {
 
 
     @PostMapping("/createcategory")
-    public CategoryDTO createCategory(@RequestBody CategoryDTO categoryDTO){
-        Category newCategory = createCategoryUseCase.execute(categoryMapper.toEntity(categoryDTO));
-        return categoryMapper.toDto(newCategory);
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryMapper.toDto(createCategoryUseCase.execute(categoryMapper.toEntity(categoryDTO))));
     }
 
     @GetMapping("/listallcategory")
-    public List<CategoryDTO> findAll(){
-        return findCategoryUseCase.execute().stream()
+    public ResponseEntity<List<CategoryDTO>> findAll(){
+        return ResponseEntity.ok(findCategoryUseCase.execute().stream()
                 .map(categoryMapper::toDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()));
     }
 
 
     @GetMapping("/listbyid/{id}")
-    public Optional<CategoryDTO> findById(@PathVariable Long id){
-        Category findCategory = findByIdCategoryUseCase.execute(id);
-        CategoryDTO findCategoryDto = categoryMapper.toDto(findCategory);
-        return Optional.of(findCategoryDto);
+    public ResponseEntity<CategoryDTO> findById(@PathVariable Long id){
+        return ResponseEntity.status(HttpStatus.FOUND).body(categoryMapper.toDto(findByIdCategoryUseCase.execute(id)));
     }
 
     @PatchMapping("/update/{id}")
-    public Optional<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
-        Category foundCategory = updateCategoryUseCase.execute(id,categoryMapper.toEntity(categoryDTO));
-        CategoryDTO updatedCategory = categoryMapper.toDto(foundCategory);
-        return Optional.of(updatedCategory);
+    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO){
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(categoryMapper.toDto(updateCategoryUseCase.execute(id,categoryMapper.toEntity(categoryDTO))));
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteCategoryById(@PathVariable Long id){
+    public ResponseEntity<Void> deleteCategoryById(@PathVariable Long id){
         deleteCategoryUseCase.execute(id);
+       return ResponseEntity.noContent().build();
     }
 
 }

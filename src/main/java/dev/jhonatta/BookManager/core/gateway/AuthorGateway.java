@@ -15,4 +15,6 @@ public interface AuthorGateway {
     Author update (Long id, Author author);
 
     void delete(Long id);
+
+    boolean existByName(String name);
 }
