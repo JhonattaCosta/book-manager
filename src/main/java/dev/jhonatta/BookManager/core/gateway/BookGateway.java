@@ -18,4 +18,8 @@ public interface BookGateway {
 
     void deleteBook(Long id);
 
+    String createRandomIdentifier();
+
+    boolean existByIdentifier(String indentifier);
+
 }
