@@ -2,6 +2,7 @@ package dev.jhonatta.BookManager.core.usercase.book.create;
 
 import dev.jhonatta.BookManager.core.entities.Book;
 import dev.jhonatta.BookManager.core.gateway.BookGateway;
+import dev.jhonatta.BookManager.core.gateway.IdentifierGateway;
 
 public class CreateBookUseCaseImp implements CreateBookUseCase{
 
@@ -13,6 +14,10 @@ public class CreateBookUseCaseImp implements CreateBookUseCase{
 
     @Override
     public Book execute(Book book) {
+        String identifier;
+        do {
+            identifier = bookGateway.createRandomIdentifier();
+        }while (bookGateway.existByIdentifier(identifier));
         return bookGateway.createBook(book);
     }
 }

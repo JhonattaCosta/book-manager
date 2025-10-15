@@ -1,5 +1,6 @@
 package dev.jhonatta.BookManager.infrastructure.persistence.book;
 
+import dev.jhonatta.BookManager.infrastructure.gateway.BookRepositoryGateway;
 import dev.jhonatta.BookManager.infrastructure.persistence.author.AuthorEntity;
 import dev.jhonatta.BookManager.infrastructure.persistence.category.CategoryEntity;
 import jakarta.annotation.Nullable;
@@ -30,6 +31,7 @@ public class BookEntity {
     @Column(name = "release_day")
     private LocalDateTime releaseDay;
 
+    @Nullable
     private  String identifier;
 
     @ManyToMany
