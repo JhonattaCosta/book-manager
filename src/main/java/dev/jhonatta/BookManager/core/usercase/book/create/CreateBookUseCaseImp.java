@@ -2,7 +2,6 @@ package dev.jhonatta.BookManager.core.usercase.book.create;
 
 import dev.jhonatta.BookManager.core.entities.Book;
 import dev.jhonatta.BookManager.core.gateway.BookGateway;
-import dev.jhonatta.BookManager.core.gateway.IdentifierGateway;
 
 public class CreateBookUseCaseImp implements CreateBookUseCase{
 

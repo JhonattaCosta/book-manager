@@ -30,6 +30,7 @@ public class BookRepositoryGateway implements BookGateway {
     private final String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private final int numberLetters = 3;
     private final int numberNumbers = 3;
+    private final int limitNumbers = 10;
 
     @Override
     public Book createBook(Book book) {
@@ -54,7 +55,7 @@ public class BookRepositoryGateway implements BookGateway {
         stringBuilder.append("-");
 
        for(int i = 0; i < numberNumbers; i++){
-           int generatorNumber = randomizer.nextInt(10);
+           int generatorNumber = randomizer.nextInt(limitNumbers);
            stringBuilder.append(generatorNumber);
        }
         return stringBuilder.toString();
